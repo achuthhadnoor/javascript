@@ -317,7 +317,8 @@ Certainly! Let's explore some more advanced and nuanced questions related to str
    ```
 
 ### 18. **Explain the purpose of the `String.fromCharCode` method.**
-   - `String.fromCharCode` converts Unicode values to characters and returns a string.
+   
+   `String.fromCharCode` converts Unicode values to characters and returns a string.
 
    ```javascript
    String.fromCharCode(72, 101, 108, 108, 111); // "Hello"
@@ -1036,5 +1037,247 @@ Certainly! Here are some more advanced interview questions related to JavaScript
 
      return copy;
    }
+   ```
+
+Certainly! Here are a few more advanced interview questions related to JavaScript objects:
+
+### 61. **Explain the concept of object delegation using the `Object.setPrototypeOf` method.**
+   - `Object.setPrototypeOf` is used to set the prototype of an object, allowing for delegation of properties and methods.
+
+   ```javascript
+   let parent = { greet: function() { console.log("Hello!"); } };
+   let child = {};
+   Object.setPrototypeOf(child, parent);
+
+   child.greet(); // "Hello!"
+   ```
+
+### 62. **What is the purpose of the `Object.isSealed` method, and how does it relate to object mutability?**
+   - `Object.isSealed` checks if an object is sealed, meaning no new properties can be added, but existing ones can be modified or removed.
+
+   ```javascript
+   let person = { name: "John" };
+   Object.seal(person);
+   Object.isSealed(person); // true
+   ```
+
+### 63. **Explain the concept of property shadowing in JavaScript objects.**
+   - Property shadowing occurs when a property in a child object has the same name as a property in its prototype chain, causing the child property to "shadow" the parent property.
+
+   ```javascript
+   let parent = { prop: "parentValue" };
+   let child = Object.create(parent);
+   child.prop = "childValue"; // Shadowing
+   ```
+
+### 64. **How can you create immutable objects in JavaScript, and why might immutability be beneficial?**
+   - Immutability can be achieved by freezing objects using `Object.freeze` or creating objects with constant values. Immutable objects simplify state management and help prevent unintended side effects.
+
+   ```javascript
+   const immutableObj = Object.freeze({ key: "value" });
+   ```
+
+### 65. **Explain the purpose of the `Object.fromEntries` method, and how does it relate to object creation?**
+   - `Object.fromEntries` transforms an array of key-value pairs into an object.
+
+   ```javascript
+   let entries = [["name", "John"], ["age", 30]];
+   let person = Object.fromEntries(entries);
+   ```
+
+### 66. **What is the role of the `Object.getOwnPropertyNames` method in handling non-enumerable properties?**
+   - `Object.getOwnPropertyNames` returns an array of all own property names of an object, including non-enumerable properties.
+
+   ```javascript
+   let person = { name: "John" };
+   Object.defineProperty(person, "age", { value: 30, enumerable: false });
+
+   let propertyNames = Object.getOwnPropertyNames(person);
+   ```
+
+### 67. **Explain the concept of object composition and how it differs from inheritance.**
+   - Object composition involves combining objects to create a new one with the combined functionality, while inheritance involves an object inheriting properties and methods from another object.
+
+   ```javascript
+   function canEat(obj) {
+     obj.eat = function() {
+       console.log("Eating...");
+     };
+   }
+
+   function canSleep(obj) {
+     obj.sleep = function() {
+       console.log("Sleeping...");
+     };
+   }
+
+   let animal = {};
+   canEat(animal);
+   canSleep(animal);
+   ```
+
+### 68. **How can you ensure that an object property is read-only using property descriptors?**
+   - You can use `Object.defineProperty` with `{ writable: false }` to make a property read-only.
+
+   ```javascript
+   let person = { name: "John" };
+   Object.defineProperty(person, "name", { writable: false });
+   ```
+
+### 69. **Explain the concept of the `Object.is` method and its use in value equality comparison.**
+   - `Object.is` compares two values for equality, similar to `===`, but with some differences in handling edge cases like NaN and -0.
+
+   ```javascript
+   Object.is(5, 5); // true
+   Object.is(NaN, NaN); // true
+   Object.is(0, -0); // false
+   ```
+
+### 70. **How does the `Object.entries` method handle objects with non-string keys?**
+   - `Object.entries` treats non-string keys as strings. It converts them to strings before including them in the result.
+
+   ```javascript
+   let obj = { 42: "value" };
+   let entries = Object.entries(obj); // [["42", "value"]]
+   ```
+
+Certainly! Here are a few more advanced interview questions related to JavaScript objects:
+
+### 71. **Explain the concept of the prototype pollution vulnerability in JavaScript objects.**
+   - Prototype pollution occurs when an attacker manipulates an object's prototype, potentially leading to unexpected behavior.
+
+   ```javascript
+   // Example of prototype pollution
+   Object.prototype.myMaliciousFunction = function() {
+     console.log("Malicious code executed!");
+   };
+
+   let user = {};
+   user.myMaliciousFunction(); // Executes malicious code
+   ```
+
+### 72. **What are Symbols in JavaScript, and how can they be used as object keys?**
+   - Symbols are unique and immutable data types. They can be used as keys for properties in objects to avoid naming conflicts.
+
+   ```javascript
+   const mySymbol = Symbol("description");
+   let obj = { [mySymbol]: "some value" };
+   ```
+
+### 73. **Explain the concept of the `Object.preventExtensions` method and its implications.**
+   - `Object.preventExtensions` prevents new properties from being added to an object, but existing properties can be modified or removed.
+
+   ```javascript
+   let person = { name: "John" };
+   Object.preventExtensions(person);
+   ```
+
+### 74. **How does JavaScript handle asynchronous programming with objects, especially with the introduction of Promises and async/await?**
+   - Asynchronous operations in JavaScript can be managed using Promises and async/await. Objects, such as Promises, play a crucial role in handling asynchronous code.
+
+   ```javascript
+   function fetchData() {
+     return new Promise((resolve, reject) => {
+       // Asynchronous code
+     });
+   }
+
+   async function fetchDataAsync() {
+     try {
+       let result = await fetchData();
+       console.log(result);
+     } catch (error) {
+       console.error(error);
+     }
+   }
+   ```
+
+### 75. **Explain the concept of object iteration in JavaScript using the `for...of` loop and how it differs from `for...in`.**
+   - The `for...of` loop iterates over iterable objects, such as arrays and strings, while the `for...in` loop iterates over enumerable properties of an object.
+
+   ```javascript
+   let arr = [1, 2, 3];
+
+   // Using for...of
+   for (let value of arr) {
+     console.log(value);
+   }
+
+   // Using for...in
+   for (let index in arr) {
+     console.log(index); // Outputs "0", "1", "2"
+   }
+   ```
+
+### 76. **What is the purpose of the `Object.values` method, and how does it handle non-enumerable properties?**
+   - `Object.values` returns an array of a given object's own enumerable property values. It does not include non-enumerable properties.
+
+   ```javascript
+   let person = { name: "John" };
+   Object.defineProperty(person, "age", { value: 30, enumerable: false });
+
+   let values = Object.values(person); // ["John"]
+   ```
+
+### 77. **Explain the concept of object memoization in JavaScript and its use in optimizing function performance.**
+   - Object memoization involves caching the results of expensive function calls to avoid redundant calculations and improve performance.
+
+   ```javascript
+   function memoize(fn) {
+     let cache = {};
+
+     return function(...args) {
+       let key = JSON.stringify(args);
+       if (!(key in cache)) {
+         cache[key] = fn(...args);
+       }
+       return cache[key];
+     };
+   }
+   ```
+
+### 78. **What is the purpose of the `Object.getOwnPropertySymbols` method, and how does it interact with other property retrieval methods?**
+   - `Object.getOwnPropertySymbols` returns an array of all own symbol properties of a given object. It complements other property retrieval methods like `Object.keys`.
+
+   ```javascript
+   let sym = Symbol("description");
+   let person = { name: "John", [sym]: "some description" };
+
+   let symbols = Object.getOwnPropertySymbols(person);
+   ```
+
+### 79. **How can you implement a mixin pattern using objects in JavaScript? Provide an example.**
+   - A mixin pattern involves combining the properties and methods of multiple objects to create a new object with a specific set of functionalities.
+
+   ```javascript
+   function canFly(obj) {
+     obj.fly = function() {
+       console.log("Flying...");
+     };
+   }
+
+   function canSwim(obj) {
+     obj.swim = function() {
+       console.log("Swimming...");
+     };
+   }
+
+   let bird = {};
+   canFly(bird);
+
+   let fish = {};
+   canSwim(fish);
+
+   let flyingFish = {};
+   canFly(flyingFish);
+   canSwim(flyingFish);
+   ```
+
+### 80. **What is the purpose of the `Object.create` method, and how does it differ from other object creation methods?**
+   - `Object.create` is used to create a new object with the specified prototype object. It differs from other methods like `Object.assign` as it allows explicit setting of the prototype.
+
+   ```javascript
+   let personProto = { greet: function() { console.log("Hello!"); } };
+   let john = Object.create(personProto);
    ```
 
